@@ -16,7 +16,6 @@ public class Produto{
     private String Tipo;
     private Double Valor;
     private int Codigo;
-    private int Quantidade;
 
     /**
      * @return the Nome
@@ -67,19 +66,4 @@ public class Produto{
     public void setCodigo(int Codigo) {
         this.Codigo = Codigo;
     }
-
-    /**
-     * @return the Quantidade
-     */
-    public int getQuantidade() {
-        return Quantidade;
-    }
-
-    /**
-     * @param Quantidade the Quantidade to set
-     */
-    public void setQuantidade(int Quantidade) {
-        this.Quantidade = Quantidade;
-    }
-
 }

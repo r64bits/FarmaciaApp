@@ -8,6 +8,7 @@ package views;
 import java.util.Scanner;
 import controllers.ProdutosController;
 import farmaciafinal.FarmaciaFinal;
+import java.util.InputMismatchException;
 import models.Produto;
 
 /**
@@ -21,46 +22,55 @@ public class ProdutoView {
          while (true) {
             System.out.println("Digite:");
             System.out.println("1 - Cadastrar Produto");
-            System.out.println("2 - Listar Produtos");
-            System.out.println("3 - Exibir Estoque do Produto");
+            System.out.println("2 - Remover Produto");
+            System.out.println("3 - Listar Produtos");
             System.out.println("4 - Voltar");
-            int opcao = scan.nextInt();
-            scan.nextLine();
+            
+            try{
+                int opcao = scan.nextInt();
+                scan.nextLine();
 
-            switch (opcao) {
-                case 1:
-                    adicionarProduto();
-                    break;
-                case 2:
-                    listarProdutos();
-                    break;
-                case 3:
-                    exibirProdutoEstoque();
-                    break;
-                case 4:
-                    FarmaciaFinal.exibirMenuPrincipal();
+                switch (opcao) {
+                    case 1:
+                        adicionarProduto();
+                        break;
+                    case 2:
+                        removerProduto();
+                        break;
+                    case 3:
+                        listarProdutos();
+                        break;
+                    case 4:
+                        FarmaciaFinal.exibirMenuPrincipal();
+                }
+                
+            }catch(InputMismatchException e){
+                System.out.println("Informe um inteiro");
+                scan.nextLine();
             }
         }
     }
     
     private void adicionarProduto() {
-        System.out.print("Digite o codigo do prdduto: ");
-        int cod = scan.nextInt();
-        scan.nextLine();
+        try{
+            System.out.print("Digite o codigo do produto: ");
+            int cod = scan.nextInt();
+            scan.nextLine();
 
-        System.out.print("Digite o nome do produto: ");
-        String nome = scan.nextLine();
-        
-        System.out.print("Digite o tipo do produto: ");
-        String tipo = scan.nextLine();
+            System.out.print("Digite o nome do produto: ");
+            String nome = scan.nextLine();
 
-        System.out.print("Digite o valor do produto: ");
-        Double valor = scan.nextDouble();
-        
-        System.out.print("Digite o quantidade do produto: ");
-        int qtde = scan.nextInt();
+            System.out.print("Digite o tipo do produto: ");
+            String tipo = scan.nextLine();
 
-        ProdutosController.adicionarProduto(cod, nome,valor,tipo,qtde);
+            System.out.print("Digite o valor do produto: ");
+            Double valor = scan.nextDouble();
+
+            ProdutosController.adicionarProduto(cod, nome,valor,tipo);
+        }catch(InputMismatchException e){
+           System.out.println("Informação incorreta");
+           scan.nextLine();
+        }
     }
     
     private void listarProdutos() {
@@ -78,20 +88,22 @@ public class ProdutoView {
         System.out.println("---");
     }
     
-    private void exibirProdutoEstoque() {
-        System.out.print("Digite o codigo do produto: ");
-        int cod = scan.nextInt();
-        scan.nextLine();
+    private void removerProduto() {
+        try{
+            System.out.print("Digite o codigo do produto: ");
+            int cod = scan.nextInt();
+            scan.nextLine();
 
-        Produto z = ProdutosController.obterPorCodigo(cod);
+            Produto z = ProdutosController.obterPorCodigo(cod);
 
-        if (z != null) {
-            System.out.println("      Codigo: " + z.getCodigo());
-            System.out.println("        Nome: " + z.getNome());
-            System.out.println("Qtde Estoque:" + z.getQuantidade());
-            System.out.println("");
-        } else {
-            System.out.println("Produto não encontrado");
+            if (z != null) {
+                ProdutosController.removerProduto(z);
+            } else {
+                System.out.println("Produto não encontrado");
+            }
+        }catch(InputMismatchException e){
+              System.out.println("Informe um inteiro");
+              scan.nextLine();
         }
     }
 }

@@ -13,7 +13,7 @@ import models.Produto;
  */
 public class ProdutosController {
     
-    public static void adicionarProduto(int codigo, String nome, Double valor,String tipo,int qtde){
+    public static void adicionarProduto(int codigo, String nome, Double valor,String tipo){
         // criei o objeto para ir para o banco
         Produto p = new Produto();
         
@@ -22,7 +22,6 @@ public class ProdutosController {
         p.setNome(nome);
         p.setValor(valor);
         p.setTipo(tipo);
-        p.setQuantidade(qtde);
         banco.BancoDadosFarmacia.getTabelaProduto().add(p);
     }
     
@@ -35,5 +34,9 @@ public class ProdutosController {
         }
         
         return null;
+    }
+    
+    public static void removerProduto(Produto prd){
+       banco.BancoDadosFarmacia.getTabelaProduto().remove(prd);
     }
 }
